@@ -3,3 +3,9 @@
 ## dependency
 - python3
 - flask
+- requests
+- redis
+## before run
+- redis server must be running on default port
+## run
+- sh run.sh

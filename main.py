@@ -27,6 +27,7 @@ def xml_from_dict(msg):
         ET.SubElement(root, k).text = v
     return ET.tostring(root)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     WX_TOKEN = 'fireyyouth'
@@ -39,7 +40,6 @@ def index():
     req_msg = dict_from_xml(request.data)
     pprint(req_msg)
 
-
     resp_msg = {
             'ToUserName' : req_msg['FromUserName'],
             'FromUserName' : req_msg['ToUserName'],
@@ -47,6 +47,9 @@ def index():
             'MsgType' : 'text',
             'Content' : 'it works bastard!'
             }
+
+    if req_msg['MsgType'] == 'event':
+        resp_msg['Content'] = 'you send %s event' % req_msg['EventKey']
 
     return xml_from_dict(resp_msg)
 
